@@ -1,11 +1,11 @@
 import { FlowProvider } from "../contexts/FlowContext";
 import { FlowPathState } from "../../model/types";
-import { GraphConnectionBuilder } from "../GraphConnectionBuilder";
+import { GraphConnectionBuilder } from "../components/GraphConnectionBuilder/GraphConnectionBuilder";
 import { useEffect, useState } from "react";
 import { graphController } from "../../controller/GraphController";
 import { ROOT_GRAPH_ID } from "../../model/constants";
 
-export const GraphWrapper: React.FC = () => {
+export const GraphPage: React.FC = () => {
   const [isDataLoading, setIsDataLoading] = useState(true);
   const [initialFlowState, setInitialFlowState] = useState<FlowPathState>([]);
 

@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 
 import "./graph-connection-builder.scss";
-import { GraphNode } from "./components/GraphNode/GraphNode";
-import { FlowContext } from "./contexts/FlowContext";
-import { ShimmerLoader } from "../../../core/coreComponents/ShimmerLoader/ShimmerLoader";
+import { GraphNode } from "../GraphNode/GraphNode";
+import { FlowContext } from "../../contexts/FlowContext";
+import { ShimmerLoader } from "../../../../../core/coreComponents/ShimmerLoader/ShimmerLoader";
 
 interface GraphConnectionBuilderProps {
   isLoading: boolean;
