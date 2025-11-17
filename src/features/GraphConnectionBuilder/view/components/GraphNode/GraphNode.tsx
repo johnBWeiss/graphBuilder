@@ -17,10 +17,7 @@ import PLUS_CIRCLE from "./../../../../../assets/icons/plus_circle_icon.png";
 import GRAP_ARROW_RIGHT from "./../../../../../assets/images/graph_arrow_right.png";
 import { IconCore } from "../../../../../core/coreComponents/IconCore/IconCore";
 import { COLORS } from "../../../../../core/coreStyles/colors";
-import {
-  GraphNodeChip,
-  // EmptyGraphNodeChip,
-} from "./components/GraphNodeChip/GraphNodeChip";
+import { GraphNodeChip } from "./components/GraphNodeChip/GraphNodeChip";
 import { TextCore } from "../../../../../core/coreComponents/TextCore/TextCore";
 import {
   CategoryOptions,
@@ -336,7 +333,7 @@ export const GraphNode: React.FC<GraphNodeProps> = ({
             onClick={() => {
               const currentFlow = flowState || [];
               const edgeNodeIndex = nodeIndex;
-              const newFlow = graphQueries.addNewNode(
+              const newFlow = graphQueries.addNode(
                 edgeNodeIndex,
                 [],
                 currentFlow,

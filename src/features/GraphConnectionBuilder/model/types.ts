@@ -1,3 +1,67 @@
+export type GraphEntity = {
+  id: EntityID;
+  label: string;
+  category: EntityCategory;
+};
+
+export interface GraphEdge {
+  source: EntityID;
+  target: EntityID;
+}
+
+export interface PathNodeType {
+  id: string;
+  selectedFieldsByCategory: Record<EntityCategory, EntityID[]> | undefined;
+}
+
+export type FlowPathState = PathNodeType[];
+
+export interface IGraphDataModel {
+  setEntitiesAndEdgesWithIndexes(
+    newEntities: GraphEntity[],
+    newEdges: GraphEdge[],
+  ): void;
+
+  addNode(
+    edgeNodeIndex: number,
+    _selectedFieldIds: string[],
+    oldFlow: FlowPathState,
+  ): FlowPathState;
+
+  editNode(newNode: PathNodeType, oldFlow: FlowPathState): FlowPathState;
+
+  deleteNode(nodeIdToDelete: string, oldFlow: FlowPathState): FlowPathState;
+
+  buildSelectedEntitiesSet(flowState: FlowPathState): Set<EntityID>;
+
+  getEntityById(id: EntityID | undefined): GraphEntity | undefined;
+
+  getCategoryKeys(): EntityCategory[];
+
+  getRawEntitiesByCategory(category: EntityCategory | undefined): GraphEntity[];
+
+  getLegalUnusedCategoriesForNewNode(
+    flowState: FlowPathState,
+    nodeIndex: number,
+    selectedEntitiesSet: Set<EntityID>,
+  ): EntityCategory[];
+
+  getLegalEntityOptionsByCategory(
+    precedingFieldId: EntityID,
+    selectedCategory: EntityCategory,
+    flowState: FlowPathState | null | undefined,
+    nodeIndex: number,
+    selectedEntitiesSet: Set<EntityID>,
+    getEntityLabelCallback: (id: EntityID | undefined) => string,
+  ): GraphEntity[];
+
+  hasLegalUnusedNextEdges(
+    sourceId: EntityID,
+    flowState: FlowPathState | null | undefined,
+    nodeIndex: number,
+    selectedEntitiesSet: Set<EntityID>,
+  ): boolean;
+}
 export enum EntityCategory {
   BILLING = "billing",
   ERP = "erp",
@@ -88,21 +152,3 @@ export enum EntityID {
   TAX_INVOICE = "tax_invoice",
   TAX_INVOICE_ITEMS = "tax_invoice_items",
 }
-
-export type GraphEntity = {
-  id: EntityID;
-  label: string;
-  category: EntityCategory;
-};
-
-export interface GraphEdge {
-  source: EntityID;
-  target: EntityID;
-}
-
-export interface PathNodeType {
-  id: string;
-  selectedFieldsByCategory: Record<EntityCategory, EntityID[]> | undefined;
-}
-
-export type FlowPathState = PathNodeType[];

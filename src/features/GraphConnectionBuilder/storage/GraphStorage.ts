@@ -4,8 +4,9 @@ import {
   GraphEntity,
   EntityID,
 } from "../model/types";
+import { IGraphStorage } from "./types";
 
-export class GraphStorage {
+export class GraphStorage implements IGraphStorage {
   private readonly _entitiesById = new Map<string, GraphEntity>();
   private readonly _entitiesByCategory = new Map<
     EntityCategory,
@@ -103,10 +104,6 @@ export class GraphStorage {
     }
 
     return categoryToIdsMap;
-  }
-
-  public getTargetIdsFrom(sourceId: EntityID): EntityID[] {
-    return this.getLegalEdges(sourceId);
   }
 
   public getAllEntities(): GraphEntity[] {

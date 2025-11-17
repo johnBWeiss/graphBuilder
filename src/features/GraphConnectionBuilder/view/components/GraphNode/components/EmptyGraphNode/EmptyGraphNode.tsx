@@ -1,5 +1,3 @@
-// --- Empty State Component ---
-
 import { GraphNodeTheme } from "../../types";
 import { TextCore } from "../../../../../../../core/coreComponents/TextCore/TextCore";
 

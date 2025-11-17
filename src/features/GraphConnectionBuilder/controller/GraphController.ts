@@ -1,11 +1,12 @@
-import { GraphEntity, GraphEdge } from "../model/types";
+import { GraphEntity, GraphEdge, IGraphDataModel } from "../model/types";
 import { getGraphEdges, getGraphNodes } from "../../../serverApi/GraphRequests";
 import { GraphDataModel } from "../model/GraphDataModel";
+import { IGraphController } from "./types";
 
-export class GraphController {
-  private dataModel: GraphDataModel;
+export class GraphController implements IGraphController {
+  private dataModel: IGraphDataModel;
 
-  constructor(dataModel: GraphDataModel) {
+  constructor(dataModel: IGraphDataModel) {
     this.dataModel = dataModel;
   }
 
@@ -24,18 +25,22 @@ export class GraphController {
     ) {
       rawNodes = nodesPromise.value.nodes;
       rawEdges = edgesPromise.value.edges;
+    } else {
+      console.error("Failed to load graph data.");
     }
 
-    this.dataModel.buildAndSetIndexedEntitiesAndEdges(rawNodes, rawEdges);
+    this.dataModel.setEntitiesAndEdgesWithIndexes(rawNodes, rawEdges);
   }
 
-  public getModel(): GraphDataModel {
+  public getModel(): IGraphDataModel {
     return this.dataModel;
   }
 }
 
-const graphDataModel = new GraphDataModel();
+const graphDataModel: IGraphDataModel = new GraphDataModel();
 
-export const graphController = new GraphController(graphDataModel);
+export const graphController: IGraphController = new GraphController(
+  graphDataModel,
+);
 
-export const graphQueries = graphDataModel;
+export const graphQueries: IGraphDataModel = graphDataModel;
