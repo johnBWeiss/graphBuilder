@@ -1,0 +1,50 @@
+@use "src/core/coreStyles/colors" as *;
+
+
+.key-value-dropdown-container{
+  width: 535px;
+  height: 286px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  display: flex;
+  overflow: hidden;
+  background-color: #fff;
+  z-index: 999999;
+
+  .key-list{
+    width: 50%;
+    border-right: 1px solid #eee;
+    background: white;
+    display: flex;
+    flex-direction: column;
+
+    .key-item{
+      padding: 9px 12px;
+      &:hover{
+       background-color:$gray-1;
+      }
+      &.is-selected{
+        background-color:$blue-11;
+      }
+    }
+  }
+  .value-list{
+    width: 50%;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    .value-item{
+      display: flex;
+      padding: 9px 12px;
+      gap:8px;
+      &:hover{
+       background-color:$gray-1;
+      }
+    }
+  }
+  .value-empty-state{
+    padding: 12px;
+    text-align: center;
+    margin: auto;
+  }
+}

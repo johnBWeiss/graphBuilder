@@ -1,0 +1,44 @@
+.circle-button-container{
+  width:28px;
+  height:28px;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.graph-node-container {
+  width: fit-content;
+  border: 1px solid #D7D8DD;
+  //height: 28px;
+  display: flex;
+  align-items: center;
+  border-radius: 6px;
+  cursor:pointer;
+  position:relative;
+  padding-left:8px;
+
+
+  .graph-node-badge-content{
+    //height:28px;
+    //padding: 0px 8px;
+    //border-right: 1px solid #D7D8DD;
+    display: flex;
+    //justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    column-gap: 8px;
+    &.is-empty{
+      width:216px;
+      justify-content: flex-start;
+    }
+    .badge-container{
+      height: 20px;
+    }
+  }
+  .node-chip-dropdown{
+    position:absolute;
+    top:35px ;
+  }
+
+}
