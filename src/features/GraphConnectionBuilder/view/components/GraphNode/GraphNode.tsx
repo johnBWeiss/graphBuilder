@@ -115,7 +115,6 @@
 //
 //   const flatCurrentNodeSelectedOptions = allCurrentNodeSelectedEntities.flatMap(
 //     ({ categoryId, selectedFieldIds }) => {
-//       // ⬇️ FIX: Explicitly return the result of the map operation.
 //       return selectedFieldIds.map((entityId) => ({
 //         categoryId: categoryId,
 //         entityId: entityId, // Using a clearer name for the flattened field ID
