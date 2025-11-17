@@ -1,15 +1,15 @@
 import React from "react";
 import "./shimmer-loader.scss";
 type ShimmerLoaderProps = {
-  width?: string | number;
-  height?: string | number;
-  borderRadius?: string | number;
+  width?: string;
+  height?: string;
+  borderRadius?: string;
   containerStyle?: React.CSSProperties;
 };
 
 export const ShimmerLoader: React.FC<ShimmerLoaderProps> = ({
-  width = "100%",
-  height = "16px",
+  width = "240px",
+  height = "28px",
   borderRadius = "4px",
   containerStyle,
 }) => {
