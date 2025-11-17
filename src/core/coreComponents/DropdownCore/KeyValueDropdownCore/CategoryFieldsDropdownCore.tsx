@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useRef,
-  useMemo,
-  useEffect,
-  SetStateAction,
-} from "react";
+import React, { useState, useRef, useMemo, useEffect } from "react";
 import "./key-value-dropdown-core.scss";
 import { classNameParserCore } from "../../../coreFunctions/classNameParserCore/classNameParserCore";
 import { TextCore } from "../../TextCore/TextCore";
@@ -24,11 +18,6 @@ type FieldDropdownOption<TCategory extends string, TValue extends string> = {
   id: TValue;
   label: string;
   category: TCategory;
-};
-
-type TypeInteraction = {
-  activeTypeId: string | null;
-  isSelection: boolean;
 };
 
 interface KeyValueDropdownCoreProps<

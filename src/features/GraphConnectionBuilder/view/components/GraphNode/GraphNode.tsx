@@ -349,7 +349,6 @@ import {
   PathNodeType,
   EntityCategory,
   EntityID,
-  GraphEntity,
 } from "../../../model/types";
 import React, {
   useContext,

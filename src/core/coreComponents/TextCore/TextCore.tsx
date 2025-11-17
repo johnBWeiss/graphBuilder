@@ -24,7 +24,6 @@ export const TextCore: React.FC<TextCoreProps> = ({
   textAlign = "left",
   textDecoration = "none",
   className,
-  textClassName,
   onClick,
 }) => {
   const textRef = useRef<HTMLDivElement | null>(null);

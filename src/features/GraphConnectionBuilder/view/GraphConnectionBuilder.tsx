@@ -1,6 +1,5 @@
-import React, { useEffect, useContext } from "react";
+import React, { useContext } from "react";
 
-import { graphQueries } from "../controller/GraphController";
 import "./graph-connection-builder.scss";
 import { GraphNode } from "./components/GraphNode/GraphNode";
 import { FlowContext } from "./contexts/FlowContext";

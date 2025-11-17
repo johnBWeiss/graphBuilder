@@ -1,10 +1,5 @@
 import { EntityCategory, EntityID } from "../../model/types";
 
-const capitalizeFirstLetter = (string: string): string => {
-  if (!string) return "";
-  return string.charAt(0).toUpperCase() + string.slice(1);
-};
-
 export const SYSTEM_ENTITY_LABELS: Readonly<Record<EntityID, string>> = {
   // Billing
   [EntityID.BILLING_ACCOUNT]: "Account",
