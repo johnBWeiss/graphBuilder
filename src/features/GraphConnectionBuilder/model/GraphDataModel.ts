@@ -194,6 +194,7 @@ export class GraphDataModel implements IGraphDataModel {
       console.error("Storage or flowState not initialized.");
       return [];
     }
+
     const legalNextCategoryMap: Map<EntityCategory, EntityID[]> =
       this.storage.getLegalEdgesGroupedByCategory(precedingFieldId);
     const legalEntityIds: EntityID[] =
