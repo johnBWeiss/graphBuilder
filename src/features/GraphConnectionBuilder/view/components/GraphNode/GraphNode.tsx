@@ -81,17 +81,11 @@ export const GraphNode: React.FC<GraphNodeProps> = ({
 
     if (showSelectionMenu) {
       document.addEventListener("mousedown", handleClickOutsideSelectionMenu);
-      document.addEventListener("touchstart", handleClickOutsideSelectionMenu);
     }
 
     return () => {
       document.removeEventListener(
         "mousedown",
-        handleClickOutsideSelectionMenu,
-      );
-      //todo yonatan
-      document.removeEventListener(
-        "touchstart",
         handleClickOutsideSelectionMenu,
       );
     };
@@ -141,12 +135,12 @@ export const GraphNode: React.FC<GraphNodeProps> = ({
 
   const valuesByCategoryGetter = useCallback(
     (selectedCategoryId: EntityCategory) => {
-      if (
-        (nodeIndex === 0 &&
-          //todo yonatan simplify
-          !Object.keys(selectedFieldsByCategory || {}).length) ||
-        !precedingEntityId
-      ) {
+      const isEmptyRootNode =
+        nodeIndex === 0 &&
+        //todo yonatan simplify
+        !Object.keys(selectedFieldsByCategory || {}).length;
+
+      if (isEmptyRootNode || !precedingEntityId) {
         return graphQueries.getRawEntitiesByCategory(selectedCategoryId);
       }
       return graphQueries.getLegalEntityOptionsByCategory(
@@ -174,6 +168,7 @@ export const GraphNode: React.FC<GraphNodeProps> = ({
         nodeIndex,
         selectedEntitiesSet,
       );
+
     return availableCategoryIds.map((categoryId) => ({
       id: categoryId,
       label: getCategoryLabel(categoryId),
@@ -183,20 +178,7 @@ export const GraphNode: React.FC<GraphNodeProps> = ({
 
   const onFieldSelected = useCallback(
     (newSelectedFieldsByCategory: Record<EntityCategory, EntityID[]>) => {
-      //todo yonatan
       const allSelectedIds = Object.values(newSelectedFieldsByCategory).flat();
-
-      // --- REMOVED THE FLAWED SET MERGING LOGIC ---
-      /*
-      setSelectedEntitiesSet(
-        (prev) =>
-          new Set([
-            ...Array.from(prev.values()),
-            ...Array.from(selectedEntitiesSet.values()),
-            ...allSelectedIds,
-          ]),
-      );
-      */
 
       if (allSelectedIds.length === 0) {
         return;
@@ -228,9 +210,14 @@ export const GraphNode: React.FC<GraphNodeProps> = ({
       isEmpty ||
       hasMultipleValues ||
       nodeIndex !== (flowState?.length || 0) - 1
-    )
+    ) {
+      console.log(
+        isEmpty,
+        hasMultipleValues,
+        nodeIndex !== (flowState?.length || 0) - 1,
+      );
       return false;
-
+    }
     // todo yonatan add extraction method
     const sourceFieldId =
       allCurrentNodeSelectedEntities[0]?.selectedFieldIds?.[0];

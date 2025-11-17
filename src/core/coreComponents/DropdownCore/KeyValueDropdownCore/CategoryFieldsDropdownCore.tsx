@@ -53,7 +53,6 @@ export function CategoryFieldsDropdownCore<
     SelectedOption<TCategory, TEntityId>
   >(selectedOptionsMapping as SelectedOption<TCategory, TEntityId>);
 
-  // This is the TEMPORARY view for the currently displayed category
   const [selectedValues, setSelectedValues] = useState<TEntityId[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<
     TCategory | undefined
@@ -88,10 +87,15 @@ export function CategoryFieldsDropdownCore<
 
     if (selectedCategory) {
       setCategorySelections((prevSelections) => {
-        return {
-          ...prevSelections,
-          [selectedCategory]: selectedValues,
-        } as Record<TCategory, TEntityId[]>;
+        const updatedSelections = { ...prevSelections };
+
+        if (selectedValues.length === 0) {
+          delete updatedSelections[selectedCategory];
+        } else {
+          updatedSelections[selectedCategory] = selectedValues;
+        }
+
+        return updatedSelections as Record<TCategory, TEntityId[]>;
       });
     }
 
@@ -102,16 +106,6 @@ export function CategoryFieldsDropdownCore<
     setSelectedValues(selectionsForNewType);
   };
 
-  const handleTypeMouseEnter = (id: TCategory) => {
-    if (selectedCategory !== id) {
-    }
-  };
-
-  const handleTypeMouseLeave = () => {
-    if (activeTypeId !== selectedCategory) {
-    }
-  };
-
   const handleContainerMouseLeave = (event: React.MouseEvent) => {
     const container = containerRef.current;
 
@@ -119,16 +113,17 @@ export function CategoryFieldsDropdownCore<
       if (selectedCategory) {
         const selectionsToOutput = {
           ...categorySelections,
-          [selectedCategory]: selectedValues,
         } as Record<TCategory, TEntityId[]>;
 
-        if (Object.keys(selectionsToOutput).length > 0) {
-          onChange(selectionsToOutput);
+        if (selectedValues.length === 0) {
+          delete selectionsToOutput[selectedCategory];
+        } else {
+          selectionsToOutput[selectedCategory] = selectedValues;
         }
 
-        if (selectedCategory) {
-          setCategorySelections(selectionsToOutput);
-        }
+        onChange(selectionsToOutput);
+
+        setCategorySelections(selectionsToOutput);
       }
 
       if (activeTypeId !== selectedCategory) {
@@ -137,54 +132,30 @@ export function CategoryFieldsDropdownCore<
     }
   };
 
-  // const toggleSelectedValue = (id: TEntityId) => {
-  //   if (!selectedCategory) return;
-  //
-  //   const doSelectedValuesIncludeCurrentSelectedValue =
-  //     selectedValues.includes(id);
-  //   const updatedSelectedValues = doSelectedValuesIncludeCurrentSelectedValue
-  //     ? selectedValues.filter((v) => v !== id)
-  //     : [...selectedValues, id];
-  //
-  //   // 1. Update the local view for responsiveness
-  //   setSelectedValues(updatedSelectedValues);
-  //
-  //   // 2. Update the GLOBAL storage for the currently selected type
-  //   const newCategorySelections = {
-  //     ...categorySelections,
-  //     [selectedCategory]: updatedSelectedValues,
-  //   } as Record<TCategory, TEntityId[]>;
-  //
-  //   setCategorySelections(newCategorySelections);
-  // };
   const toggleSelectedValue = (id: TEntityId) => {
     if (!selectedCategory) return;
 
-    // --- 1. Efficient Manipulation using Set ---
-    // Create a Set for fast manipulation
     const currentSet = new Set(selectedValues);
     const isSelected = currentSet.has(id);
 
     if (isSelected) {
-      currentSet.delete(id); // O(1)
+      currentSet.delete(id);
     } else {
-      currentSet.add(id); // O(1)
+      currentSet.add(id);
     }
 
-    // --- 2. Convert back to Array for State Update ---
-    const updatedSelectedValuesArray = Array.from(currentSet); // O(N) only when setting state
+    const updatedSelectedValuesArray = Array.from(currentSet);
 
-    // 3. Update the local view for responsiveness
     setSelectedValues(updatedSelectedValuesArray);
 
-    // 4. Update the GLOBAL storage
     const newCategorySelections = {
       ...categorySelections,
-      [selectedCategory]: updatedSelectedValuesArray, // Pass the array to global state
+      [selectedCategory]: updatedSelectedValuesArray,
     } as Record<TCategory, TEntityId[]>;
 
     setCategorySelections(newCategorySelections);
   };
+
   return (
     <div
       className={classNameParserCore("key-value-dropdown-container", className)}
@@ -199,8 +170,6 @@ export function CategoryFieldsDropdownCore<
               className={classNameParserCore("key-item", {
                 "is-selected": selectedCategory === key.id,
               })}
-              onMouseEnter={() => handleTypeMouseEnter(key.id)}
-              onMouseLeave={handleTypeMouseLeave}
               onClick={() => handleCategoryClick(key.id)}
             >
               <TextCore

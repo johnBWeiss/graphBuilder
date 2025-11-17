@@ -15,13 +15,6 @@ export const GraphConnectionBuilder: React.FC<GraphConnectionBuilderProps> = ({
   const flowContext = useContext(FlowContext);
   const { flowState, setFlowState, setSelectedEntitiesSet } = flowContext || {};
 
-  // todo yonatan check if still need this
-  // useEffect(() => {
-  //   const updatedSelectedEntitySet =
-  //     graphQueries.buildSelectedEntitiesSet(flowState);
-  //   setSelectedEntitiesSet(updatedSelectedEntitySet);
-  // }, [flowState]);
-
   return (
     <div className="flex justify-center align-center height-100vh">
       <div className="graph-connection-container">

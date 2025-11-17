@@ -130,6 +130,18 @@ export class GraphDataModel implements IGraphDataModel {
     return this.storage?.getAllCategories().map((category) => category) || [];
   }
 
+  public getPrecedingSourceFieldId(precedingNode: PathNodeType | undefined): EntityID | undefined {
+    if (!precedingNode) {
+        return undefined;
+    }
+
+    const precedingSelectedFieldId = Object.values(
+      precedingNode?.selectedFieldsByCategory || {},
+    )?.[0]?.[0];
+
+    return precedingSelectedFieldId;
+}
+
   public getLegalUnusedCategoriesForNewNode(
     flowState: FlowPathState,
     nodeIndex: number,
@@ -144,9 +156,7 @@ export class GraphDataModel implements IGraphDataModel {
       return [];
     }
 
-    const precedingSelectedFieldId = Object.values(
-      precedingNode?.selectedFieldsByCategory || {},
-    )?.[0]?.[0];
+    const precedingSelectedFieldId = this.getPrecedingSourceFieldId(precedingNode)
 
     if (!precedingSelectedFieldId) {
       return [];
@@ -197,9 +207,10 @@ export class GraphDataModel implements IGraphDataModel {
 
     const legalNextCategoryMap: Map<EntityCategory, EntityID[]> =
       this.storage.getLegalEdgesGroupedByCategory(precedingFieldId);
+    console.log("legalNextCategoryMap", legalNextCategoryMap);
     const legalEntityIds: EntityID[] =
       legalNextCategoryMap.get(selectedCategory) ?? [];
-
+    console.log("legal entities", legalEntityIds);
     if (legalEntityIds.length === 0) {
       return [];
     }
@@ -257,7 +268,10 @@ export class GraphDataModel implements IGraphDataModel {
         nodeIndex,
         selectedEntitiesSet,
       );
-
+    console.log(
+      "selectedEntitiesExcludingCurrent",
+      selectedEntitiesExcludingCurrent,
+    );
     return legalTargetIds.some((targetId: EntityID) => {
       const entity = this.getEntityById(targetId);
       return !!entity && !selectedEntitiesExcludingCurrent?.has(targetId);

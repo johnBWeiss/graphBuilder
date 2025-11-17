@@ -38,6 +38,8 @@ export interface IGraphDataModel {
 
   getCategoryKeys(): EntityCategory[];
 
+  getPrecedingSourceFieldId(precedingNode: PathNodeType | undefined): EntityID | undefined
+
   getRawEntitiesByCategory(category: EntityCategory | undefined): GraphEntity[];
 
   getLegalUnusedCategoriesForNewNode(
