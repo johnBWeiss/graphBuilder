@@ -2,7 +2,6 @@ import React from "react";
 import { BadgeCore } from "../../../../../../../core/coreComponents/BadgeCore/BadgeCore";
 import { VerticalSeparatorCore } from "../../../../../../../core/coreComponents/VerticalSeparatorCore/VerticalSeparatorCore";
 import { COLORS } from "../../../../../../../core/coreStyles/colors";
-import "./graph-node-chip.scss";
 import { GraphNodeTheme } from "../../types";
 
 interface GraphNodeChipProps {
