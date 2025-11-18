@@ -12,6 +12,7 @@ export const COLORS = {
   "blue-10": "#01579b",
   "blue-11": "#F1F4FE",
   "blue-12": "#283E95",
+  "blue-13": "#E3E8FC",
 
   // Green
   "green-1": "#e6f8d7",

@@ -4,11 +4,11 @@ import { VerticalSeparatorCore } from "../../../../../../../core/coreComponents/
 import { COLORS } from "../../../../../../../core/coreStyles/colors";
 import { GraphNodeTheme } from "../../types";
 
-interface GraphNodeChipProps {
+type GraphNodeChipProps = {
   categoryLabel: string;
   fieldLabel: string;
   theme?: GraphNodeTheme;
-}
+};
 
 export const GraphNodeChip: React.FC<GraphNodeChipProps> = ({
   categoryLabel,
@@ -28,7 +28,7 @@ export const GraphNodeChip: React.FC<GraphNodeChipProps> = ({
         <div className="flex badge-container">
           <BadgeCore
             text={categoryLabel}
-            backgroundColor={keyBackgroundColor || "#F1F4FE"}
+            backgroundColor={keyBackgroundColor || COLORS["blue-11"]}
             fontSize={12}
             color={keyTextColor || COLORS["blue-12"]}
             badgeStyle={{
@@ -39,7 +39,7 @@ export const GraphNodeChip: React.FC<GraphNodeChipProps> = ({
           <VerticalSeparatorCore />
           <BadgeCore
             text={fieldLabel}
-            backgroundColor={valueBackgroundColor || "#E3E8FC"}
+            backgroundColor={valueBackgroundColor || COLORS["blue-13"]}
             fontSize={12}
             fontWeight={"bold"}
             badgeStyle={{

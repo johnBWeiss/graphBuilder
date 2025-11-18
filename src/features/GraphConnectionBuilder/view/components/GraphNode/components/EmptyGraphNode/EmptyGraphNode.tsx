@@ -1,10 +1,9 @@
 import { GraphNodeTheme } from "../../types";
 import { TextCore } from "../../../../../../../core/coreComponents/TextCore/TextCore";
 
-interface EmptyGraphNodeProps {
+type EmptyGraphNodeProps = {
   onClick: () => void;
-  theme?: GraphNodeTheme;
-}
+};
 
 export const EmptyGraphNode: React.FC<EmptyGraphNodeProps> = ({ onClick }) => (
   <div className="selected-graph-node-container p-top-bottom-3">

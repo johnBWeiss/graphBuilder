@@ -38,12 +38,12 @@ import { EmptyGraphNode } from "./components/EmptyGraphNode/EmptyGraphNode";
 const getNodeById = (id: string, flow: FlowPathState) =>
   flow.find((node) => node.id === id);
 
-interface GraphNodeProps {
+type GraphNodeProps = {
   graphNodeData: PathNodeType;
   nodeIndex?: number;
   theme?: GraphNodeTheme;
   onChange: (state: FlowPathState) => void;
-}
+};
 
 export const GraphNode: React.FC<GraphNodeProps> = ({
   theme,
@@ -61,6 +61,13 @@ export const GraphNode: React.FC<GraphNodeProps> = ({
 
   const [showSelectionMenu, setShowSelectionMenu] = useState<boolean>(false);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const handleAddNode = useCallback(() => {
+    const currentFlow = flowState || [];
+    const edgeNodeIndex = nodeIndex;
+    const newFlow = graphQueries.addNode(edgeNodeIndex, [], currentFlow);
+    setFlowState?.(newFlow);
+  }, [flowState, nodeIndex, setFlowState, graphQueries]);
 
   useEffect(() => {
     const updatedSelectedEntitySet =
@@ -247,7 +254,7 @@ export const GraphNode: React.FC<GraphNodeProps> = ({
     selectedEntitiesSet,
   ]);
 
-  const handleDropdownOpen = () => setShowSelectionMenu(true);
+  const handleDropdownOpen = useCallback(() => setShowSelectionMenu(true), []);
 
   return (
     <div className="flex gap-8 align-center">
@@ -264,7 +271,7 @@ export const GraphNode: React.FC<GraphNodeProps> = ({
         ref={containerRef}
       >
         {isEmpty ? (
-          <EmptyGraphNode onClick={handleDropdownOpen} theme={theme} />
+          <EmptyGraphNode onClick={handleDropdownOpen} />
         ) : (
           <div
             onClick={handleDropdownOpen}
@@ -324,16 +331,7 @@ export const GraphNode: React.FC<GraphNodeProps> = ({
         >
           <div
             className={"hover-blue-11 circle-button-container"}
-            onClick={() => {
-              const currentFlow = flowState || [];
-              const edgeNodeIndex = nodeIndex;
-              const newFlow = graphQueries.addNode(
-                edgeNodeIndex,
-                [],
-                currentFlow,
-              );
-              setFlowState?.(newFlow);
-            }}
+            onClick={handleAddNode}
           >
             <IconCore src={PLUS_CIRCLE} width={24} height={24} />
           </div>

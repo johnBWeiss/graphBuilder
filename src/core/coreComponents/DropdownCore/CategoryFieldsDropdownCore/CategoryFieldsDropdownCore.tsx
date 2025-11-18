@@ -20,10 +20,10 @@ type FieldDropdownOption<TCategory extends string, TValue extends string> = {
   category: TCategory;
 };
 
-interface KeyValueDropdownCoreProps<
+type CategoryValueDropdownCoreProps<
   TCategory extends string,
   TValue extends string,
-> {
+> = {
   keyOptions: CategoryDropdownOption<TCategory>[];
   valueOptionsGetter: (
     category: TCategory,
@@ -33,7 +33,7 @@ interface KeyValueDropdownCoreProps<
   selectedOptionsMapping: SelectedOption<TCategory, TValue> | undefined;
   categoriesLabelGetter: (category: TCategory) => string;
   valueOptionsLabelGetter: (id: TValue) => string;
-}
+};
 
 export function CategoryFieldsDropdownCore<
   TCategory extends string,
@@ -46,7 +46,7 @@ export function CategoryFieldsDropdownCore<
   selectedOptionsMapping,
   categoriesLabelGetter,
   valueOptionsLabelGetter,
-}: KeyValueDropdownCoreProps<TCategory, TValue>) {
+}: CategoryValueDropdownCoreProps<TCategory, TValue>) {
   const [categorySelections, setCategorySelections] = useState<
     SelectedOption<TCategory, TValue>
   >(selectedOptionsMapping as SelectedOption<TCategory, TValue>);

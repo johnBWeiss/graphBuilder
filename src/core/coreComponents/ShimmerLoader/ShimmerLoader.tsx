@@ -1,5 +1,6 @@
 import React from "react";
 import "./shimmer-loader.scss";
+
 type ShimmerLoaderProps = {
   width?: string;
   height?: string;

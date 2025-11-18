@@ -6,9 +6,9 @@ import { FlowContext } from "../../contexts/FlowContext";
 import { ShimmerLoader } from "../../../../../core/coreComponents/ShimmerLoader/ShimmerLoader";
 import { FlowPathState } from "../../../model/types";
 
-interface GraphConnectionBuilderProps {
+type GraphConnectionBuilderProps = {
   isLoading: boolean;
-}
+};
 
 export const GraphConnectionBuilder: React.FC<GraphConnectionBuilderProps> = ({
   isLoading,

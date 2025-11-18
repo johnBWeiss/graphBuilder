@@ -4,15 +4,15 @@ export type GraphEntity = {
   category: EntityCategory;
 };
 
-export interface GraphEdge {
+export type GraphEdge = {
   source: EntityID;
   target: EntityID;
-}
+};
 
-export interface PathNodeType {
+export type PathNodeType = {
   id: string;
   selectedFieldsByCategory: Record<EntityCategory, EntityID[]> | undefined;
-}
+};
 
 export type FlowPathState = PathNodeType[];
 
@@ -38,7 +38,9 @@ export interface IGraphDataModel {
 
   getCategoryKeys(): EntityCategory[];
 
-  getPrecedingSourceFieldId(precedingNode: PathNodeType | undefined): EntityID | undefined
+  getPrecedingSourceFieldId(
+    precedingNode: PathNodeType | undefined,
+  ): EntityID | undefined;
 
   getRawEntitiesByCategory(category: EntityCategory | undefined): GraphEntity[];
 
