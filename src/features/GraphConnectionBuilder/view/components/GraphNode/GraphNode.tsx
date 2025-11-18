@@ -27,7 +27,7 @@ import {
 import { graphQueries } from "../../../controller/GraphController";
 import { FlowContext } from "../../contexts/FlowContext";
 import Tippy from "@tippyjs/react";
-import { CategoryFieldsDropdownCore } from "../../../../../core/coreComponents/DropdownCore/KeyValueDropdownCore/CategoryFieldsDropdownCore";
+import { CategoryFieldsDropdownCore } from "../../../../../core/coreComponents/DropdownCore/CategoryFieldsDropdownCore/CategoryFieldsDropdownCore";
 import {
   getCategoryLabel,
   getEntityLabel,

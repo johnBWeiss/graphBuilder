@@ -1,5 +1,5 @@
 import React, { useState, useRef, useMemo, useEffect } from "react";
-import "./key-value-dropdown-core.scss";
+import "./category-field-dropdown-core.scss";
 import { classNameParserCore } from "../../../coreFunctions/classNameParserCore/classNameParserCore";
 import { TextCore } from "../../TextCore/TextCore";
 
@@ -156,16 +156,19 @@ export function CategoryFieldsDropdownCore<
 
   return (
     <div
-      className={classNameParserCore("key-value-dropdown-container", className)}
+      className={classNameParserCore(
+        "category-value-dropdown-container",
+        className,
+      )}
       ref={containerRef}
       onMouseLeave={handleContainerMouseLeave}
     >
-      <div className="key-list">
+      <div className="category-list">
         {(keyOptions || Object.keys(selectedOptionsMapping || {}))?.map(
           (key) => (
             <div
               key={String(key.id)}
-              className={classNameParserCore("key-item", {
+              className={classNameParserCore("category-item", {
                 "is-selected": selectedCategory === key.id,
               })}
               onClick={() => handleCategoryClick(key.id)}

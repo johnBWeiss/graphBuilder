@@ -1,7 +1,7 @@
 @use "src/core/coreStyles/colors" as *;
 
 
-.key-value-dropdown-container{
+.category-value-dropdown-container{
   width: 535px;
   height: 286px;
   border: 1px solid #ccc;
@@ -11,7 +11,7 @@
   background-color: #fff;
   z-index: 999999;
 
-  .key-list{
+  .category-list{
     overflow-y: scroll;
     width: 50%;
     border-right: 1px solid #eee;
@@ -19,7 +19,7 @@
     display: flex;
     flex-direction: column;
 
-    .key-item{
+    .category-item{
       padding: 9px 12px;
       &:hover{
        background-color:$gray-1;
