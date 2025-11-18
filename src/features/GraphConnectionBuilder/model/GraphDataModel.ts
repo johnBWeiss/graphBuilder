@@ -167,7 +167,6 @@ export class GraphDataModel implements IGraphDataModel {
         selectedEntitiesSet,
       );
 
-    // Get legally connected entities grouped by category from storage
     const legalNextCategoryMap = this.storage?.getLegalEdgesGroupedByCategory(
       precedingSelectedFieldId,
     );

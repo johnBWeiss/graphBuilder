@@ -1,9 +1,4 @@
-import {
-  EntityCategory,
-  GraphEntity,
-  EntityID,
-  GraphEdge, // Needed for constructor contract
-} from "../model/types";
+import { EntityCategory, GraphEntity, EntityID } from "../model/types";
 
 export interface IGraphStorage {
   getEntityById(id: string): GraphEntity | undefined;

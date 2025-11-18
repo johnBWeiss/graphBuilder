@@ -31,7 +31,7 @@ export class GraphStorage implements IGraphStorage {
     for (const entity of entities) {
       if (this._entitiesById.has(entity.id)) {
         console.warn(
-          `[GraphStorage] Duplicate entity id '${entity.id}' detected in input. Overriding previous value.`,
+          `Duplicate entity id '${entity.id}' detected in input. Overriding previous value.`,
         );
       } else {
         uniqueEntities.push(entity);
