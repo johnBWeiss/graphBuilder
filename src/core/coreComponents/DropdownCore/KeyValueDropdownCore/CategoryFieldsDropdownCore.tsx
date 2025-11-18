@@ -8,10 +8,10 @@ type SelectedOption<
   TEntityId extends string,
 > = Record<TCategory, TEntityId[]>;
 
-type CategoryDropdownOption<TKey extends string> = {
-  id: TKey;
+type CategoryDropdownOption<TCategory extends string> = {
+  id: TCategory;
   label: string;
-  category: TKey;
+  category: TCategory;
 };
 
 type FieldDropdownOption<TCategory extends string, TValue extends string> = {
@@ -22,24 +22,22 @@ type FieldDropdownOption<TCategory extends string, TValue extends string> = {
 
 interface KeyValueDropdownCoreProps<
   TCategory extends string,
-  TEntityId extends string,
+  TValue extends string,
 > {
   keyOptions: CategoryDropdownOption<TCategory>[];
   valueOptionsGetter: (
     category: TCategory,
-  ) => FieldDropdownOption<TCategory, TEntityId>[];
-  onChange: (
-    newSelectedFieldsByCategory: Record<TCategory, TEntityId[]>,
-  ) => void;
+  ) => FieldDropdownOption<TCategory, TValue>[];
+  onChange: (newSelectedFieldsByCategory: Record<TCategory, TValue[]>) => void;
   className?: string;
-  selectedOptionsMapping: SelectedOption<TCategory, TEntityId> | undefined;
+  selectedOptionsMapping: SelectedOption<TCategory, TValue> | undefined;
   categoriesLabelGetter: (category: TCategory) => string;
-  valueOptionsLabelGetter: (id: TEntityId) => string;
+  valueOptionsLabelGetter: (id: TValue) => string;
 }
 
 export function CategoryFieldsDropdownCore<
   TCategory extends string,
-  TEntityId extends string,
+  TValue extends string,
 >({
   keyOptions,
   valueOptionsGetter,
@@ -48,12 +46,12 @@ export function CategoryFieldsDropdownCore<
   selectedOptionsMapping,
   categoriesLabelGetter,
   valueOptionsLabelGetter,
-}: KeyValueDropdownCoreProps<TCategory, TEntityId>) {
+}: KeyValueDropdownCoreProps<TCategory, TValue>) {
   const [categorySelections, setCategorySelections] = useState<
-    SelectedOption<TCategory, TEntityId>
-  >(selectedOptionsMapping as SelectedOption<TCategory, TEntityId>);
+    SelectedOption<TCategory, TValue>
+  >(selectedOptionsMapping as SelectedOption<TCategory, TValue>);
 
-  const [selectedValues, setSelectedValues] = useState<TEntityId[]>([]);
+  const [selectedValues, setSelectedValues] = useState<TValue[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<
     TCategory | undefined
   >();
@@ -95,7 +93,7 @@ export function CategoryFieldsDropdownCore<
           updatedSelections[selectedCategory] = selectedValues;
         }
 
-        return updatedSelections as Record<TCategory, TEntityId[]>;
+        return updatedSelections as Record<TCategory, TValue[]>;
       });
     }
 
@@ -113,7 +111,7 @@ export function CategoryFieldsDropdownCore<
       if (selectedCategory) {
         const selectionsToOutput = {
           ...categorySelections,
-        } as Record<TCategory, TEntityId[]>;
+        } as Record<TCategory, TValue[]>;
 
         if (selectedValues.length === 0) {
           delete selectionsToOutput[selectedCategory];
@@ -132,7 +130,7 @@ export function CategoryFieldsDropdownCore<
     }
   };
 
-  const toggleSelectedValue = (id: TEntityId) => {
+  const toggleSelectedValue = (id: TValue) => {
     if (!selectedCategory) return;
 
     const currentSet = new Set(selectedValues);
@@ -151,7 +149,7 @@ export function CategoryFieldsDropdownCore<
     const newCategorySelections = {
       ...categorySelections,
       [selectedCategory]: updatedSelectedValuesArray,
-    } as Record<TCategory, TEntityId[]>;
+    } as Record<TCategory, TValue[]>;
 
     setCategorySelections(newCategorySelections);
   };
@@ -188,16 +186,14 @@ export function CategoryFieldsDropdownCore<
               <div
                 key={String(value.id)}
                 className="value-item"
-                onClick={() => toggleSelectedValue(value.id as TEntityId)}
+                onClick={() => toggleSelectedValue(value.id)}
               >
                 <input
                   type="checkbox"
                   checked={selectedValues.includes(value.id)}
-                  onChange={() => toggleSelectedValue(value.id as TEntityId)}
+                  onChange={() => toggleSelectedValue(value.id)}
                 />
-                <TextCore
-                  text={valueOptionsLabelGetter(value.id as TEntityId)}
-                />
+                <TextCore text={valueOptionsLabelGetter(value.id)} />
               </div>
             ))
           ) : (
